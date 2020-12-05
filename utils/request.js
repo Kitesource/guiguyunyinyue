@@ -19,21 +19,31 @@
 */
 import config from './config'
 
-export default (url, data={}, method='GET') => {
-    return new  Promise((resolve, reject) => {
+export default (url, data = {}, method = 'GET') => {
+    return new Promise((resolve, reject) => {
         //1.new Promise 初始化promise实例的状态为pending
         wx.request({
             url: config.mobileHost + url,
             data,
             method,
+            header: {
+                cookie: wx.getStorageSync('cookies')?wx.getStorageSync('cookies').find(item => item.indexOf('MUSIC_U') !== -1):''
+            },
             success: (res) => {
-            //   console.log("成功获取数据：", res);
-              resolve(res.data) //resolve修改promise的状态为成功状态resolved
+                // console.log("成功获取数据：", res);
+                if(data.isLogin) { //表明是登录请求
+                    //将用户的cookie存入至本地
+                    wx.setStorage({
+                        key: 'cookies',
+                        data: res.cookies
+                    })
+                }
+                resolve(res.data) //resolve修改promise的状态为成功状态resolved
             },
             fail: (err) => {
-            //   console.log("获取数据失败：",err);
-              reject(err)  //reject修改promise的状态为失败状态，rejected
+                //console.log("获取数据失败：",err);
+                reject(err)  //reject修改promise的状态为失败状态，rejected
             }
         })
-    })  
+    })
 }

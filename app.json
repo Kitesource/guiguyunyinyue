@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages/personal/personal",
-    "pages/index/index",
     "pages/vedio/vedio",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/personal/personal",
     "pages/logs/logs"
   ],
   "window": {
@@ -14,9 +15,8 @@
   "tabBar": {
     "color": "#333",
     "selectedColor": "#d43c33",
-    "backgroundColor":"#fff",
-    "list": 
-    [
+    "backgroundColor": "#fff",
+    "list": [
       {
         "pagePath": "pages/index/index",
         "text": "主页",

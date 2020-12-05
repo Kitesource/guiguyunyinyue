@@ -194,3 +194,20 @@
 .cardList .card-item .more {
   float: right;
 }
+
+/* 最近播放的样式 */
+.recentScroll {
+  display: flex;
+  /* 使用竖向滚动时，需要给scroll-view一个固定高度 */
+  height: 200rpx;
+}
+
+.scrollItem {
+  margin-right: 10rpx;
+}
+
+.scrollItem image {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 10rpx;
+}

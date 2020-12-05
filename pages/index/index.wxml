@@ -1,6 +1,6 @@
 <!-- pages/index.wxml -->
 <view class="indexContainer">
-  <swiper class="banners" indicator-dots indicator-color='ivory' indicator-active-color="#d43c33" autoplay="{{true}}">
+  <swiper class="banners" indicator-dots indicator-color='ivory' indicator-active-color="#d43c33" autoplay="{{true}}" circular>
     <swiper-item wx:for="{{bannerList}}" wx:key="bannerId">
       <image src="{{item.pic}}"></image>
     </swiper-item>

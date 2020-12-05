@@ -23,7 +23,7 @@ Page({
 
     //获取推荐歌单数据
     let recommendListData = await request('/personalized', { limit: 10} )
-    console.log("推荐歌单数据:",recommendListData);
+    // console.log("推荐歌单数据:",recommendListData);
     this.setData({
       recommendList: recommendListData.result
     })
