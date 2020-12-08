@@ -1,3 +1,4 @@
+import PubSub from 'pubsub-js'
 import request from '../../utils/request'
 // pages/recommendSong/recommendSong.js
 Page({
@@ -9,6 +10,7 @@ Page({
     day: '', //天
     month: '', //月
     recommendList:[], //每日推荐数据
+    index: 0, //点击音乐的下标
   },
 
   /**
@@ -38,6 +40,27 @@ Page({
 
     //获取每日推荐数据
     this.getRecommendListData();
+
+    //订阅来自songDetail页面发布的消息
+    PubSub.subscribe('switchType', (msg, type) => {
+      // console.log(msg, type);
+      let {recommendList, index} = this.data;
+      if(type === 'pre') {  //上一首
+        (index === 0) && (index = recommendList.length);
+        index -= 1;
+      }else { //下一首
+        (index === recommendList.length - 1) && (index = -1);
+        index += 1;
+      }
+      //更新下标
+      this.setData({
+        index,
+      })
+
+      let mucicId = recommendList[index].id;
+      //将音乐id回传给songDetail 页面
+      PubSub.publish('musicId', mucicId);
+    })
   },
 
   //获取每日推荐数据函数
@@ -50,7 +73,11 @@ Page({
 
   //跳转转至songDetail
   toSongDetail(event){
-    let song = event.currentTarget.dataset.song;
+    let {song, index} = event.currentTarget.dataset;
+    // let index = event.currentTarget.dataset.index;
+    this.setData({
+      index,
+    })
 
     //路由跳转传参： query参数
     wx.navigateTo({

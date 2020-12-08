@@ -34,6 +34,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    isMusicPlay: false, //标识是否有音乐再播放
+    musicId: '' //音乐id
   }
 })

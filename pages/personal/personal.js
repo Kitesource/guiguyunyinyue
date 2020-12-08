@@ -82,7 +82,7 @@ Page({
   },
 
   //跳转至登录login页面的回调
-  toLogin() {
+  ToLogin() {
     wx.navigateTo({
       url: '/pages/login/login'
     })
