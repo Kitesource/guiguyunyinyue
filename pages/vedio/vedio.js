@@ -22,6 +22,13 @@ Page({
     this.getVideoGroupListData();
   },
 
+  //点击跳转到搜索页面
+  ToSearch() {
+    wx.navigateTo({
+      url: '/pages/search/search',
+    })
+  },
+
   //获取导航标签的数据
   async getVideoGroupListData() {
     let videoGroupListData = await request('/video/group/list');
@@ -40,7 +47,7 @@ Page({
     let videoListData = await request('/video/group', { id: navId })
 
     //关闭消息提示框
-    wx.hideLoading()
+    wx.hideLoading();
 
     // console.log(videoListData);
     let index = 0;
@@ -1779,6 +1786,7 @@ Page({
       videoList
     })
   },
+
 
 
   /**

@@ -2,5 +2,5 @@
 export default {
     host: 'http://localhost:3000',
     // mobileHost: 'https://zhiyongzaixian123456.hk.utools.club'
-    mobileHost: 'https://chenfuzhou123456.hk.utools.club'
+    mobileHost: 'https://chenfuzhou1234.hk.utools.club'
 }

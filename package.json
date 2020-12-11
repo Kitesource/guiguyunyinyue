@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Kitesource/guiguyunyinyue#readme",
   "dependencies": {
+    "moment": "^2.29.1",
     "pubsub-js": "^1.9.1"
   }
 }

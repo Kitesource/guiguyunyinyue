@@ -19,7 +19,7 @@
 
   <!-- 内容区域 -->
   <scroll-view class="listScroll" scroll-y="{{true}}">
-    <view class="scrollItem" wx:for="{{recommendList}}" wx:key="id" data-index="{{index}}" data-song="{{item}}"  bindtap="toSongDetail">
+    <view class="scrollItem" hover-class="hoverSrollItem" wx:for="{{recommendList}}" wx:key="id" data-index="{{index}}" data-song="{{item}}"  bindtap="toSongDetail">
       <image src="{{item.album.picUrl}}" />
       <view class="musicInfo">
         <text class="musicName">{{item.name}}</text>

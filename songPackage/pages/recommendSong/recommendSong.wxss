@@ -1,4 +1,9 @@
 /* pages/recommendSong/recommendSong.wxss */
+@import "/static/iconfont/iconfont.wxss";
+page {
+  height: 100%;
+}
+
 .recommendSongContainer .header {
   position: relative;
   width: 100%;
@@ -50,6 +55,9 @@
   position: relative;
   display: flex;
   margin-bottom: 20rpx;
+}
+.hoverSrollItem {
+  background-color: #eee;
 }
 
 .scrollItem image {

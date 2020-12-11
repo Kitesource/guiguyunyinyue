@@ -1,6 +1,7 @@
 // pages/songDetail/songDetail.js
 import PubSub from 'pubsub-js'
-import request from '../../utils/request'
+import moment from 'moment'
+import request from '../../../utils/request'
 //获取全局实例
 const appInstance = getApp();
 
@@ -14,6 +15,9 @@ Page({
     song: {}, //歌曲详情对象
     musicId: '', //音乐的id
     musicLink: '', //播放音乐的链接
+    currentTime: '00:00', //初始时间
+    durationTime: '00:00', //总时长
+    currentWidth: 0, //实时进度条的宽度
   },
 
   /**
@@ -48,28 +52,40 @@ Page({
     this.backgroundAudioManager = wx.getBackgroundAudioManager();
     //监视音乐的播放/暂停/停止
     this.backgroundAudioManager.onPlay(() => {
-      // console.log('play');
-      // this.setData({
-      //   isPlay: true
-      // })
       this.changePlayState(true);
       //修改全局音乐播放的状态
       appInstance.globalData.musicId = musicId;
     });
     this.backgroundAudioManager.onPause(() => {
-      // console.log('pause');
-      //修改音乐是否播放状态
-      // this.setData({
-      //   isPlay: false
-      // })
       this.changePlayState(false);
     });
     this.backgroundAudioManager.onStop(() => {
-      // this.setData({
-      //   isPlay: false
-      // })
       this.changePlayState(false);
     });
+    //监听音乐播放自然结束
+    this.backgroundAudioManager.onEnded(() => {
+      //自动切换至下一首，并自动播放
+      PubSub.publish('switchType', 'next');
+      //播放进度条还原至0, 实时播放的时间还原成0
+      this.setData({
+        currentWidth: 0,
+        currentTime: '00:00',
+      })
+    });
+
+
+    //监听播放音乐实时进度
+    this.backgroundAudioManager.onTimeUpdate(() => {
+      // console.log("总时长：", this.backgroundAudioManager.duration); //单位s
+      // console.log('当前时长', this.backgroundAudioManager.currentTime);
+      //格式化实时的播放时间(moment时间内传入ms)
+      let currentTime = moment(this.backgroundAudioManager.currentTime * 1000).format('mm:ss');
+      let currentWidth = this.backgroundAudioManager.currentTime/this.backgroundAudioManager.duration * 430;
+      this.setData({
+        currentTime,
+        currentWidth
+      })
+    })
   },
 
   //修改播放状态的功能函数
@@ -84,8 +100,12 @@ Page({
   //获取音乐详情的功能函数
   async getMusicInfo(musicId) {
     let songData = await request('/song/detail', { ids: musicId });
+    //获取歌曲的播放时长, 并用moment进行格式转
+    // console.log(songData.songs[0].dt); //单位毫秒
+    let durationTime = moment(songData.songs[0].dt).format('mm:ss');
     this.setData({
-      song: songData.songs[0]
+      song: songData.songs[0],
+      durationTime,
     })
 
     //动态修改窗口标题

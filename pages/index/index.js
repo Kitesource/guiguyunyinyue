@@ -60,10 +60,16 @@ Page({
   //点击切换到每日推荐的回调
   ToRecommendSong() {
     wx.navigateTo({
-      url: '/pages/recommendSong/recommendSong',
+      url: '/songPackage/pages/recommendSong/recommendSong',
     })
   },
 
+  //点击切换到other页面
+  ToOther() {
+    wx.navigateTo({
+      url: '/songPackage/pages/other/other',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

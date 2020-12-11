@@ -3,7 +3,7 @@
   <!-- 头部区域 -->
   <view class="header">
     <image src="/static/images/video/video.jpg" />
-    <view class="search">搜索商品</view>
+    <view class="search" bindtap="ToSearch">搜索音乐</view>
     <image src="/static/images/logo.png" />
   </view>
 

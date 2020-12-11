@@ -1,5 +1,5 @@
 import PubSub from 'pubsub-js'
-import request from '../../utils/request'
+import request from '../../../utils/request'
 // pages/recommendSong/recommendSong.js
 Page({
 
@@ -83,7 +83,7 @@ Page({
     wx.navigateTo({
       //不能将song对象直接作为参数传递，长度过长会自动截取掉
       // url: '/pages/songDetail/songDetail?song=' + JSON.stringify(song)
-      url: '/pages/songDetail/songDetail?musicId=' + song.id
+      url: '/songPackage/pages/songDetail/songDetail?musicId=' + song.id
     })
   },
 
